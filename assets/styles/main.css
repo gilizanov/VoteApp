@@ -1,0 +1,73 @@
+:root {
+  --font-family: 'Roboto', sans-serif;
+
+  --color-white: #ffffff;
+  --color-extra-light: #f2f2f2;
+  --color-light: #e6e6e6;
+  --color-light-gray: #808080;
+  --color-gray: #757575;
+  --color-dark-gray: #292929;
+  --color-dark: #191919;
+  --color-black: #000000;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:focus-visible {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+input {
+  appearance: none;
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button,
+input::-webkit-search-results-button,
+input::-webkit-search-results-decoration {
+  display: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
