@@ -14,5 +14,13 @@ export default defineNuxtConfig({
       ],
       meta: [{ name: 'apple-mobile-web-app-title', content: 'MyWebSite' }]
     }
+  },
+  icon: {
+    customCollections: [
+      {
+        prefix: 'icon',
+        dir: './assets/icons'
+      }
+    ]
   }
 })
