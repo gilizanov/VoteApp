@@ -13,6 +13,10 @@ export default defineNuxtConfig({
         { rel: 'manifest', href: '/favicon/site.webmanifest' }
       ],
       meta: [{ name: 'apple-mobile-web-app-title', content: 'MyWebSite' }]
+    },
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in'
     }
   },
   icon: {

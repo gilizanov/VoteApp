@@ -18,6 +18,7 @@
 
 .content {
   flex-grow: 1;
-  padding: 16px;
+  padding: 16px 64px;
+  overflow-y: auto;
 }
 </style>
