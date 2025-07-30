@@ -1,28 +1,24 @@
 <template>
-  <div class="post">
+  <Component :is="isLink ? NuxtLink : 'div'" :to="isLink ? `/post/${post.id}` : undefined" class="post">
     <div class="post__header">
       <div class="post__author">
         <div class="post__author-avatar">
           <img src="/images/avatar.jpg" alt="Аватар" />
         </div>
-        <p class="post__author-name">Ruslan G.</p>
+        <p class="post__author-name">{{ post.author_id }}</p>
       </div>
-      <div class="post__date">4 дня назад</div>
+      <div class="post__date">{{ formatDate(post.published_at || post.updated_at) }}</div>
     </div>
-    <p class="post__title">Добавить функцию голосования</p>
-    <p class="post__text">
-      Попробовать добавить в приложение функцию голосования, которая позволит определить, какая фича более полезна, а
-      какая нет. После добавления поста какой-то текст какой-то текст какой-то текст какой-то текст какой-то текст
-      какой-то текст какой-то текст какой-то текст какой-то текст какой-то текст
-    </p>
+    <p class="post__title">{{ post.title }}</p>
+    <p class="post__text">{{ post.content }}</p>
     <div class="post__actions-container">
       <div class="post__actions">
         <button type="button" class="post__button">
-          <span class="post__button-text">10</span>
+          <span class="post__button-text">{{ post.likes }}</span>
           <Icon name="mynaui:like" size="18" style="color: var(--color-light-gray)" />
         </button>
         <button type="button" class="post__button">
-          <span class="post__button-text">1</span>
+          <span class="post__button-text">{{ post.dislikes }}</span>
           <Icon name="mynaui:dislike" size="18" style="color: var(--color-light-gray)" />
         </button>
       </div>
@@ -36,13 +32,22 @@
         </button>
       </div>
     </div>
-  </div>
+  </Component>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { Post } from '@/interfaces/post.interface'
+import { NuxtLink } from '#components'
+
+defineProps<{
+  post: Post
+  isLink?: boolean
+}>()
+</script>
 
 <style scoped>
 .post {
+  display: block;
   padding-bottom: 48px;
   padding-right: 120px;
   border-bottom: 1px solid var(--color-light);
