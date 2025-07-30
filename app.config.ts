@@ -1,3 +1,3 @@
 export default defineAppConfig({
-  API_URL: 'https://example.com'
+  API_URL: 'http://localhost:8080'
 })
