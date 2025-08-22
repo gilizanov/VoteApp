@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   devServer: {
     port: 5173
   },
-  modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/icon'],
+  modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/icon', '@pinia/nuxt', 'pinia-plugin-persistedstate/nuxt'],
   app: {
     head: {
       link: [

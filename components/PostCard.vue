@@ -1,25 +1,35 @@
 <template>
-  <Component :is="isLink ? NuxtLink : 'div'" :to="isLink ? `/post/${post.id}` : undefined" class="post">
-    <div class="post__header">
-      <div class="post__author">
-        <div class="post__author-avatar">
-          <img src="/images/avatar.jpg" alt="Аватар" />
+  <div class="post">
+    <Component :is="isLink ? NuxtLink : 'div'" :to="isLink ? `/post/${post.id}` : undefined">
+      <div class="post__header">
+        <div class="post__author">
+          <div class="post__author-avatar">
+            <img src="/images/avatar.jpg" alt="Аватар" />
+          </div>
+          <p class="post__author-name">{{ post.author_id }}</p>
         </div>
-        <p class="post__author-name">{{ post.author_id }}</p>
+        <div class="post__date">{{ formatDate(post.published_at || post.updated_at) }}</div>
       </div>
-      <div class="post__date">{{ formatDate(post.published_at || post.updated_at) }}</div>
-    </div>
-    <p class="post__title">{{ post.title }}</p>
-    <p class="post__text">{{ post.content }}</p>
+      <p class="post__title">{{ post.title }}</p>
+      <p class="post__text">{{ post.content }}</p>
+    </Component>
     <div class="post__actions-container">
-      <div class="post__actions">
-        <button type="button" class="post__button">
+      <div :class="['post__actions', { disabled: getReaction(post.id) }]">
+        <button type="button" class="post__button" @click="setReaction(post.id, 'like')">
           <span class="post__button-text">{{ post.likes }}</span>
-          <Icon name="mynaui:like" size="18" style="color: var(--color-light-gray)" />
+          <Icon
+            :name="getReaction(post.id) === 'like' ? 'mynaui:like-solid' : 'mynaui:like'"
+            size="18"
+            style="color: var(--color-light-gray)"
+          />
         </button>
-        <button type="button" class="post__button">
+        <button type="button" class="post__button" @click="setReaction(post.id, 'dislike')">
           <span class="post__button-text">{{ post.dislikes }}</span>
-          <Icon name="mynaui:dislike" size="18" style="color: var(--color-light-gray)" />
+          <Icon
+            :name="getReaction(post.id) === 'dislike' ? 'mynaui:dislike-solid' : 'mynaui:dislike'"
+            size="18"
+            style="color: var(--color-light-gray)"
+          />
         </button>
       </div>
       <div class="post__actions">
@@ -32,7 +42,7 @@
         </button>
       </div>
     </div>
-  </Component>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -43,6 +53,10 @@ defineProps<{
   post: Post
   isLink?: boolean
 }>()
+
+const reactionsStore = useReactionsStore()
+const setReaction = reactionsStore.setReaction
+const getReaction = reactionsStore.getReaction
 </script>
 
 <style scoped>
@@ -117,6 +131,11 @@ defineProps<{
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.post__actions.disabled {
+  pointer-events: none;
+  cursor: default;
 }
 
 .post__button-text {
