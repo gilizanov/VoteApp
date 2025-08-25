@@ -7,8 +7,7 @@
 <script setup lang="ts">
 import type { GetPostResponse } from '@/interfaces/post.interface'
 
-const config = useAppConfig()
-const API_URL = config.API_URL
+const API_URL = useAPI()
 
 const router = useRouter()
 

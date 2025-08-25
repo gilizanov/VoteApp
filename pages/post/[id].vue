@@ -8,8 +8,7 @@ import type { Post } from '@/interfaces/post.interface'
 
 const route = useRoute()
 
-const config = useAppConfig()
-const API_URL = config.API_URL
+const API_URL = useAPI()
 
 const { data } = await useFetch<Post>(`${API_URL}/posts/${route.params.id}`)
 const post = computed(() => {

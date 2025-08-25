@@ -3,8 +3,7 @@ import type { Reaction } from '@/interfaces/reaction.interface'
 export const useReactionsStore = defineStore(
   'reactions',
   () => {
-    const config = useAppConfig()
-    const API_URL = config.API_URL
+    const API_URL = useAPI()
 
     const reactions = ref<Reaction[]>([])
 
