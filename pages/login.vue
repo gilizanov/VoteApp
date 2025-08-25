@@ -20,8 +20,10 @@ import type { LoginResponse } from '@/interfaces/auth.interface'
 const API_URL = useAPI()
 const email = ref<string | undefined>('')
 const password = ref<string | undefined>('')
+
 const authStore = useAuthStore()
 const setToken = authStore.setToken
+const setUser = authStore.setUser
 
 const login = async () => {
   const data = await $fetch<LoginResponse>(`${API_URL}/auth/login`, {
@@ -32,6 +34,7 @@ const login = async () => {
     }
   })
   setToken(data.token)
+  setUser(data.user)
   navigateTo('/')
 }
 </script>
