@@ -25,9 +25,7 @@ const API_URL = useAPI()
 const email = ref<string | undefined>('')
 const password = ref<string | undefined>('')
 
-const authStore = useAuthStore()
-const setToken = authStore.setToken
-const setUser = authStore.setUser
+const { token, user } = storeToRefs(useAuthStore())
 
 const login = async () => {
   const data = await $fetch<LoginResponse>(`${API_URL}/auth/login`, {
@@ -37,8 +35,8 @@ const login = async () => {
       password: password.value?.trim()
     }
   })
-  setToken(data.token)
-  setUser(data.user)
+  token.value = data.token
+  user.value = data.user
   navigateTo('/')
 }
 </script>
