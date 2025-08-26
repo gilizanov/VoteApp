@@ -6,4 +6,8 @@
 definePageMeta({
   middleware: 'auth'
 })
+
+useSeoMeta({
+  title: 'Редактирование поста'
+})
 </script>

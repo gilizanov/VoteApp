@@ -19,6 +19,11 @@ const post = computed(() => {
     updated_at: new Date(data.value.updated_at)
   }
 })
+
+useSeoMeta({
+  title: `${post.value?.title}`,
+  description: `${post.value?.content.slice(0, 100)}`
+})
 </script>
 
 <style scoped>
