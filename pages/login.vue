@@ -17,6 +17,10 @@
 <script setup lang="ts">
 import type { LoginResponse } from '@/interfaces/auth.interface'
 
+useSeoMeta({
+  title: 'Вход'
+})
+
 const API_URL = useAPI()
 const email = ref<string | undefined>('')
 const password = ref<string | undefined>('')

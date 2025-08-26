@@ -6,4 +6,8 @@
 definePageMeta({
   middleware: 'auth'
 })
+
+useSeoMeta({
+  title: 'Создание поста'
+})
 </script>

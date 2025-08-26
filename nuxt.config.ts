@@ -8,6 +8,8 @@ export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxt/fonts', '@nuxt/icon', '@pinia/nuxt', 'pinia-plugin-persistedstate/nuxt'],
   app: {
     head: {
+      title: 'VoteApp',
+      titleTemplate: '%s | VoteApp',
       link: [
         { rel: 'icon', type: 'image/png', href: '/favicon/favicon-96x96.png', sizes: '96x96' },
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon/favicon.svg' },
@@ -15,7 +17,7 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png' },
         { rel: 'manifest', href: '/favicon/site.webmanifest' }
       ],
-      meta: [{ name: 'apple-mobile-web-app-title', content: 'MyWebSite' }]
+      meta: [{ name: 'apple-mobile-web-app-title', content: 'VoteApp' }]
     },
     pageTransition: {
       name: 'page',

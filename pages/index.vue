@@ -6,7 +6,13 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useSeoMeta({
+  titleTemplate: '',
+  description: 'Система голосования - VoteApp',
+  ogDescription: 'Система голосования - VoteApp'
+})
+</script>
 
 <style scoped>
 .post-layout {
