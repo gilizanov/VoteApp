@@ -15,8 +15,7 @@
 <script setup lang="ts">
 const router = useRouter()
 const logout = useAuthStore().logout
-const { token, user } = storeToRefs(useAuthStore())
-const isAuth = computed(() => !!token.value && !!user.value)
+const { isAuth } = storeToRefs(useAuthStore())
 
 const handleLogout = () => {
   logout()

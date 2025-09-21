@@ -11,6 +11,7 @@ const route = useRoute()
 const API_URL = useAPI()
 
 const { data } = await useFetch<Post>(`${API_URL}/posts/${route.params.id}`)
+
 const post = computed(() => {
   if (!data.value) return null
   return {
@@ -21,8 +22,8 @@ const post = computed(() => {
 })
 
 useSeoMeta({
-  title: `${post.value?.title}`,
-  description: `${post.value?.content.slice(0, 100)}`
+  title: data.value?.title,
+  description: data.value?.content.slice(0, 100)
 })
 </script>
 

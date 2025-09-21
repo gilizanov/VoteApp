@@ -1,6 +1,6 @@
 <template>
   <div class="post-list">
-    <PostCard v-for="post in posts" :key="post.id" :post="post" is-link />
+    <PostCard v-for="post in posts" :key="post.id" :post="post" is-link @deleted="refresh" />
   </div>
 </template>
 
@@ -27,6 +27,7 @@ watch([sortBy, page], () => {
 })
 
 const { reactions } = storeToRefs(useReactionsStore())
+
 watch(
   reactions,
   () => {
@@ -36,7 +37,7 @@ watch(
 )
 
 const { data, refresh } = await useFetch<GetPostResponse>(`${API_URL}/posts`, {
-  key: 'products',
+  key: 'posts',
   query
 })
 

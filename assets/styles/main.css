@@ -53,7 +53,10 @@ p {
 }
 
 input {
+  font-family: var(--font-family);
   appearance: none;
+  margin: 0;
+  padding: 0;
   border: none;
   border-radius: 0;
   background-color: transparent;
@@ -64,6 +67,34 @@ input::-webkit-search-cancel-button,
 input::-webkit-search-results-button,
 input::-webkit-search-results-decoration {
   display: none;
+}
+
+textarea {
+  font-family: var(--font-family);
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  resize: none;
+  background-color: transparent;
+}
+
+.textarea {
+  padding: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-dark);
+  border: 1px solid var(--color-light);
+  width: 100%;
+}
+
+.textarea::placeholder {
+  color: var(--color-light-gray);
+}
+
+.textarea--text {
+  height: 100%;
 }
 
 ul {
@@ -77,4 +108,95 @@ img {
   max-width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 12px;
+  border-radius: 50%;
+  background-color: var(--color-extra-light);
+  transition: background-color 0.15s;
+}
+
+.add-text {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-dark-gray);
+}
+
+@media (hover: hover) {
+  .add-button:hover .add-icon {
+    background-color: var(--color-light);
+  }
+}
+
+.post-create,
+.post-edit {
+  display: flex;
+  gap: 32px;
+  height: calc(75dvh + 32px);
+}
+
+.post-create .add-icon,
+.post-edit .add-icon {
+  position: relative;
+}
+
+.post-create .add-icon::before,
+.post-edit .add-icon::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 75dvh;
+  background-color: var(--color-light);
+}
+
+.post-create__form,
+.post-edit__form,
+.post-create__fields,
+.post-edit__fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-create__form,
+.post-edit__form {
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.post-create__fields,
+.post-edit__fields {
+  align-items: start;
+  gap: 16px;
+  max-width: calc(2 / 3 * 100%);
+  width: 100%;
+  height: 100%;
+}
+
+.post-create__button,
+.post-edit__button {
+  margin-top: 32px;
+  align-self: center;
+}
+
+.post-create__button:disabled,
+.post-edit__button:disabled {
+  opacity: 0.5;
+  cursor: auto;
+  pointer-events: none;
 }
