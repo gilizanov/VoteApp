@@ -1,6 +1,6 @@
 <template>
   <div class="post">
-    <Component :is="isLink ? NuxtLink : 'div'" :to="isLink ? `/post/${post.id}` : undefined">
+    <Component :is="isLink ? NuxtLink : 'div'" :to="isLink ? `/posts/${post.id}` : undefined">
       <div class="post__header">
         <div class="post__author">
           <div class="post__author-avatar">
@@ -11,7 +11,7 @@
         <div class="post__date">{{ formatDate(post.published_at || post.updated_at) }}</div>
       </div>
       <p class="post__title">{{ post.title }}</p>
-      <p class="post__text">{{ post.content }}</p>
+      <p class="post__text" :style="{ '-webkit-line-clamp': isLink ? 3 : 'unset' }">{{ post.content }}</p>
     </Component>
     <div class="post__actions-container">
       <div :class="['post__actions', { disabled: getReaction(post.id) }]">
@@ -21,6 +21,7 @@
             :name="getReaction(post.id) === 'like' ? 'mynaui:like-solid' : 'mynaui:like'"
             size="18"
             style="color: var(--color-light-gray)"
+            mode="svg"
           />
         </button>
         <button type="button" class="post__button" @click="setReaction(post.id, 'dislike')">
@@ -29,17 +30,24 @@
             :name="getReaction(post.id) === 'dislike' ? 'mynaui:dislike-solid' : 'mynaui:dislike'"
             size="18"
             style="color: var(--color-light-gray)"
+            mode="svg"
           />
         </button>
       </div>
-      <div class="post__actions">
-        <button type="button" class="post__button">
-          <Icon name="hugeicons:delete-01" size="18" style="color: var(--color-light-gray)" />
+      <div v-if="isLink" class="post__actions">
+        <button type="button" class="post__button" @click="deletePost(post.id)">
+          <Icon name="hugeicons:delete-01" size="18" style="color: var(--color-light-gray)" mode="svg" />
         </button>
-        <button type="button" class="post__button">
-          <Icon name="solar:pen-2-line-duotone" size="18" style="color: var(--color-light-gray)" />
+        <NuxtLink
+          :to="{
+            path: '/posts/edit',
+            query: { id: post.id }
+          }"
+          class="post__button"
+        >
+          <Icon name="solar:pen-2-line-duotone" size="18" style="color: var(--color-light-gray)" mode="svg" />
           <span class="post__button-text">Изменить</span>
-        </button>
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -54,9 +62,32 @@ defineProps<{
   isLink?: boolean
 }>()
 
+const emit = defineEmits<{
+  (e: 'deleted'): void
+}>()
+
+const API_URL = useAPI()
+
 const reactionsStore = useReactionsStore()
 const setReaction = reactionsStore.setReaction
 const getReaction = reactionsStore.getReaction
+
+const { isAuth, token } = storeToRefs(useAuthStore())
+
+const deletePost = async (id: number) => {
+  if (!isAuth.value) {
+    navigateTo('/login')
+    return
+  }
+  await $fetch(`${API_URL}/posts/${id}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token.value}`
+    }
+  })
+
+  emit('deleted')
+}
 </script>
 
 <style scoped>
@@ -119,7 +150,6 @@ const getReaction = reactionsStore.getReaction
   margin-bottom: 16px;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
   overflow: hidden;
   font-weight: 300;
   font-size: 16px;
@@ -138,9 +168,19 @@ const getReaction = reactionsStore.getReaction
   cursor: default;
 }
 
+.post__button svg {
+  transition: transform 0.15s;
+}
+
 .post__button-text {
   font-weight: 400;
   font-size: 14px;
   color: var(--color-dark-gray);
+}
+
+@media (hover: hover) {
+  .post__button:hover svg {
+    transform: scale(1.2);
+  }
 }
 </style>

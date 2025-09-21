@@ -1,8 +1,8 @@
 <template>
   <div class="post-layout">
-    <PostControls />
-    <PostList />
-    <PostPagination />
+    <PostsControls />
+    <PostsList />
+    <PostsPagination />
   </div>
 </template>
 

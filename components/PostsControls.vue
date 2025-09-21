@@ -1,11 +1,11 @@
 <template>
   <div class="post-controls">
-    <button type="button" class="add-button">
-      <span class="add-button__icon">
+    <NuxtLink v-if="isAuth" to="/posts/create" class="add-button">
+      <span class="add-icon">
         <Icon name="icon:plus" size="10" mode="svg" />
       </span>
-      <span class="add-button__text">Добавить новое обновление для голосования</span>
-    </button>
+      <span class="add-text">Добавить новое обновление для голосования</span>
+    </NuxtLink>
     <div class="post-sorting-block">
       <button
         v-for="(method, index) in sortingMethods"
@@ -21,6 +21,8 @@
 </template>
 
 <script setup lang="ts">
+const { isAuth } = storeToRefs(useAuthStore())
+
 const { sortBy } = storeToRefs(useQueryStore())
 const sortingMethods = useQueryStore().sortingMethods
 </script>
@@ -66,34 +68,7 @@ const sortingMethods = useQueryStore().sortingMethods
   width: 100%;
 }
 
-.add-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.add-button__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  border-radius: 50%;
-  background-color: var(--color-extra-light);
-  transition: background-color 0.15s;
-}
-
-.add-button__text {
-  font-weight: 300;
-  font-size: 16px;
-  line-height: 150%;
-  color: var(--color-dark-gray);
-}
-
 @media (hover: hover) {
-  .add-button:hover .add-button__icon {
-    background-color: var(--color-light);
-  }
-
   .sorting-button:hover::before {
     width: 100%;
   }
